@@ -2,7 +2,7 @@ import time
 import requests
 import wget
 
-from functions import fetch_units, fetch_tasks, subjects
+from functions import fetch_units, fetch_tasks, subjects, urls
 
 choice = input('Choose between Dante1, Dante2 or SO2 (type Dante1, Dante2 or SO2): ')
 if choice not in subjects:
@@ -17,21 +17,17 @@ try:
     cookies = {'hwsid': '', 'hwtoken': ''}
     save_path_src = ''
 
-    units_url = 'https://dante.iis.p.lodz.pl/api/student/topicbrowser/getTopics?subjectid='
-    units = fetch_units(cookies, units_url, subject_id)
-    units = units['Entries']
+    units = fetch_units(cookies, urls['units_url'], subject_id)
 
     for i in range(len(units)):
-        print('------Unit%d------' % (i+1))
+        print('------Unit%d------' % (i + 1))
         time.sleep(10)
         task_number = 1
 
         unit = units[i]
         unit_number = unit['Number']
 
-        tasks_url = 'https://dante.iis.p.lodz.pl/api/student/taskbrowser/getTasks?subjectid='
-        tasks = fetch_tasks(cookies, tasks_url, subject_id, str(unit['TopicID']))
-        tasks = tasks['Entries']
+        tasks = fetch_tasks(cookies, urls['tasks_url'], subject_id, str(unit['TopicID']))
 
         for j in range(len(tasks)):
             save_path = save_path_src
@@ -40,7 +36,7 @@ try:
 
             if machine_status is not None:
                 taskID = task['TaskID']
-                req = requests.get('https://dante.iis.p.lodz.pl/api/student/reply/getReplyHistory?subjectid=' + subject_id + '&taskid=' + str(taskID), cookies=cookies)
+                req = requests.get(urls['reply_url'] + subject_id + '&taskid=' + str(taskID), cookies=cookies)
 
                 replies = req.json()
                 replies = replies['Entries']
