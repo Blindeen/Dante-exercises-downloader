@@ -1,8 +1,7 @@
 import time
-import requests
 import wget
 
-from functions import fetch_units, fetch_tasks, subjects, urls
+from functions import *
 
 choice = input('Choose between Dante1, Dante2 or SO2 (type Dante1, Dante2 or SO2): ')
 if choice not in subjects:
@@ -15,7 +14,7 @@ print('----------START----------')
 
 try:
     cookies = {'hwsid': '', 'hwtoken': ''}
-    save_path_src = ''
+    directory = ''
 
     units = fetch_units(cookies, urls['units_url'], subject_id)
 
@@ -30,32 +29,19 @@ try:
         tasks = fetch_tasks(cookies, urls['tasks_url'], subject_id, str(unit['TopicID']))
 
         for j in range(len(tasks)):
-            save_path = save_path_src
+            save_path = directory
             task = tasks[j]
             machine_status = task['MachineStatus']
 
             if machine_status is not None:
                 taskID = task['TaskID']
-                req = requests.get(urls['reply_url'] + subject_id + '&taskid=' + str(taskID), cookies=cookies)
-
-                replies = req.json()
-                replies = replies['Entries']
+                replies = fetch_replies(cookies, urls['reply_url'], subject_id, taskID)
 
                 if (replies[0])['MachineMessage'] == 'Ok' or (replies[0])['MachineMessage'] == 'Ok.':
                     download_url = (replies[0])['MachineReport']
                     download_url = download_url.replace('index.html', 'source.zip', 1)
 
-                    if int(unit_number) < 10:
-                        save_path += '0' + unit_number + '.'
-                    else:
-                        save_path += unit_number + '.'
-
-                    if task_number < 10:
-                        save_path += '0' + str(task_number)
-                    else:
-                        save_path += str(task_number)
-
-                    save_path += '.zip'
+                    save_path = concat_path(save_path, unit_number, task_number)
                     output_mess = save_path[-1:-10:-1]
 
                     print('\033[92m' + 'Success ' + output_mess[::-1] + '\033[0m')
@@ -67,6 +53,6 @@ try:
 
 except requests.RequestException:
     print('\033[91m' + '\033[1m' + 'CONNECTION ERROR' + '\033[0m')
-    print('If it\'s later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you have set hwsid and hwtoken')
+    print('If it\'s later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you\'ve set hwsid and hwtoken')
 
 print('----------END----------')
