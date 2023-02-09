@@ -13,27 +13,20 @@ urls = {
 }
 
 
-def fetch_units(cookies, url, subject_id):
-    rq = requests.get(url + subject_id, cookies=cookies)
-    units = rq.json()
+def fetch(*args):
+    args_len = len(args)
+    fetch_url = ''
 
-    return units['Entries']
+    if args_len == 3:
+        fetch_url = args[1] + args[2]
+    else:
+        for i in range(1, 5):
+            fetch_url += args[i]
 
+    rq = requests.get(fetch_url, cookies=args[0])
+    response = rq.json()
 
-def fetch_tasks(cookies, url, subject_id, topic_id):
-    fetch_url = url + subject_id + '&topicid=' + topic_id
-    rq = requests.get(fetch_url, cookies=cookies)
-    tasks = rq.json()
-
-    return tasks['Entries']
-
-
-def fetch_replies(cookies, url, subject_id, task_id):
-    fetch_url = url + subject_id + '&taskid=' + str(task_id)
-    rq = requests.get(fetch_url, cookies=cookies)
-    replies = rq.json()
-
-    return replies['Entries']
+    return response['Entries']
 
 
 def concat_path(path, unit_number, task_number):
