@@ -3,7 +3,7 @@ import wget
 
 from functions import *
 
-choice = input('Choose between Dante1, Dante2 or SO2 (type Dante1, Dante2 or SO2): ')
+choice = input('Choose between PP1, PP2 or SO2 (type PP1, PP2 or SO2): ')
 if choice not in subjects:
     print('Incorrect input')
     exit()

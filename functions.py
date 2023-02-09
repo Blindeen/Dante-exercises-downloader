@@ -1,8 +1,8 @@
 import requests
 
 subjects = {
-    'Dante1': '25',
-    'Dante2': '27',
+    'PP1': '25',
+    'PP2': '27',
     'SO2': '29'
 }
 
