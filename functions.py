@@ -35,10 +35,10 @@ def concat_path(path, unit_number, task_number):
     else:
         path += unit_number + '.'
 
-    if task_number < 10:
-        path += '0' + str(task_number)
+    if int(task_number) < 10:
+        path += '0' + task_number
     else:
-        path += str(task_number)
+        path += task_number
 
     path += '.zip'
 

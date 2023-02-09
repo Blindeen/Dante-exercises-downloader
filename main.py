@@ -24,7 +24,6 @@ try:
     for i in range(len(units)):
         print('------Unit%d------' % (i + 1))
         time.sleep(10)
-        task_number = 1
 
         unit = units[i]
         unit_number = unit['Number']
@@ -34,6 +33,7 @@ try:
         for j in range(len(tasks)):
             save_path = directory
             task = tasks[j]
+            task_number = task['TaskNumber']
             machine_status = task['MachineStatus']
 
             if machine_status is not None:
@@ -51,8 +51,6 @@ try:
 
                     time.sleep(1)
                     wget.download(download_url, save_path)
-
-            task_number += 1
 
 except requests.RequestException:
     print('\033[91m' + '\033[1m' + 'CONNECTION ERROR' + '\033[0m')
