@@ -53,8 +53,6 @@ try:
                     wget.download(download_url, save_path)
 
 except requests.RequestException:
-    print('\033[91m' + '\033[1m' + 'CONNECTION ERROR' + '\033[0m')
-    print('If it\'s later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you\'ve set '
-          'hwsid and hwtoken')
+    print(conn_error['title'], conn_error['message'], sep='\n')
 
 print('----------END----------')

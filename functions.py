@@ -13,6 +13,13 @@ urls = {
 }
 
 
+conn_error = {
+    'title': '\033[91m' + '\033[1m' + 'CONNECTION ERROR' + '\033[0m',
+    'message': 'If it\'s later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you\'ve '
+               'set hwsid and hwtoken '
+}
+
+
 def fetch(*args):
     args_len = len(args)
     fetch_url = ''
