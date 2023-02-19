@@ -3,6 +3,13 @@ import wget
 
 from functions import *
 
+objects = load_objects('objects.json')
+subjects = objects['subjects']
+urls = objects['urls']
+conn_error = objects['conn_error']
+cookies = objects['cookies']
+directory = objects['directory']
+
 choice = input('Choose between PP1, PP2 or SO2 (type PP1, PP2 or SO2): ')
 if choice not in subjects:
     print('Incorrect input')
@@ -13,12 +20,6 @@ subject_id = subjects[choice]
 print('----------START----------')
 
 try:
-    cookies = {
-        'hwsid': '',
-        'hwtoken': ''
-    }
-    directory = ''
-
     units = fetch(cookies, urls['units_url'], subject_id)
 
     for i in range(len(units)):
@@ -53,6 +54,6 @@ try:
                     wget.download(download_url, save_path)
 
 except requests.RequestException:
-    print(conn_error['title'], conn_error['message'], sep='\n')
+    print('\033[91m' + '\033[1m' + conn_error['title'] + '\033[0m', conn_error['message'], sep='\n')
 
 print('----------END----------')

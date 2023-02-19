@@ -1,0 +1,21 @@
+{
+  "subjects": {
+    "PP1": "25",
+    "PP2": "27",
+    "SO2": "29"
+  },
+  "urls": {
+    "units_url": "https://dante.iis.p.lodz.pl/api/student/topicbrowser/getTopics?subjectid=",
+    "tasks_url": "https://dante.iis.p.lodz.pl/api/student/taskbrowser/getTasks?subjectid=",
+    "reply_url": "https://dante.iis.p.lodz.pl/api/student/reply/getReplyHistory?subjectid="
+  },
+  "conn_error": {
+    "title": "CONNECTION ERROR",
+    "message": "If it's later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you've set hwsid and hwtoken"
+  },
+  "cookies": {
+    "hwsid": "",
+    "hwtoken": ""
+  },
+  "directory": ""
+}

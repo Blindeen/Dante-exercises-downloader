@@ -1,23 +1,13 @@
 import requests
-
-subjects = {
-    'PP1': '25',
-    'PP2': '27',
-    'SO2': '29'
-}
-
-urls = {
-    'units_url': 'https://dante.iis.p.lodz.pl/api/student/topicbrowser/getTopics?subjectid=',
-    'tasks_url': 'https://dante.iis.p.lodz.pl/api/student/taskbrowser/getTasks?subjectid=',
-    'reply_url': 'https://dante.iis.p.lodz.pl/api/student/reply/getReplyHistory?subjectid='
-}
+import json
 
 
-conn_error = {
-    'title': '\033[91m' + '\033[1m' + 'CONNECTION ERROR' + '\033[0m',
-    'message': 'If it\'s later than 10PM on weekdays or 9PM on weekends, remember to turn on VPN or check if you\'ve '
-               'set hwsid and hwtoken '
-}
+def load_objects(file_name):
+    f = open(file_name)
+    data = json.load(f)
+    f.close()
+
+    return data
 
 
 def fetch(*args):
