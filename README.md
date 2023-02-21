@@ -8,7 +8,7 @@ Open your browser, then enter dante website and login. Open browser console and 
 ## How to get
 ### Clone
 ```bash
-  git clone https://github.com/Blindeen/Dante-exercises-downloader.git
+git clone https://github.com/Blindeen/Dante-exercises-downloader.git
 ```
 ## Usage
 Type PP1, PP2 or SO2 and then wait for the feedback from script.
